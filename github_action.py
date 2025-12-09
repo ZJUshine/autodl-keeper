@@ -8,9 +8,8 @@ from datetime import datetime
 import pytz
 
 
-load_dotenv()
-authorization = os.getenv('Authorization')
-min_day = os.getenv('MIN_DAY')
+authorization = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjM1MjcwMSwidXVpZCI6ImRmNWQ1NjBjLTg2MDAtNGNlMi05MzJhLTMzMjllNTcxNDNkYiIsImlzX2FkbWluIjpmYWxzZSwiYmFja3N0YWdlX3JvbGUiOiIiLCJpc19zdXBlcl9hZG1pbiI6ZmFsc2UsInN1Yl9uYW1lIjoiIiwidGVuYW50IjoiYXV0b2RsIiwidXBrIjoiNGVlMGJkIn0.JDAJqCrpBaLJy0QGXTaWB02ziTIkZXs9DC3q4-SYf9MBIzrKZF8EPhXOSfaksfLS7GwYCCRQFaL5SeQhHWDXPQ"
+min_day = "7"
 
 logging.basicConfig(
     level=logging.INFO,
