@@ -113,3 +113,55 @@ docker logs -f autodl-keeper
 ```
 
 ![](./images/07.png)
+
+## 启动方案3: GitHub Actions (推荐)
+
+使用GitHub Actions可以免费运行定时任务，无需自己维护服务器。
+
+### 配置步骤
+
+1. **Fork 本项目**到你的GitHub账号
+
+2. **配置Secrets**
+   - 进入你的仓库，点击 `Settings` -> `Secrets and variables` -> `Actions`
+   - 有两种配置方式：
+   
+   **方式1：使用 .env 文件（推荐）**
+   - 点击 `New repository secret`，创建名为 `ENV_FILE` 的 secret
+   - 将你本地的 `.env` 文件内容完整复制到 secret 的值中，例如：
+     ```
+     Authorization=your_authorization_token_here
+     MIN_DAY=7
+     ```
+   
+   **方式2：分别配置（备选）**
+   - 点击 `New repository secret` 添加以下secrets:
+     - `AUTODL_AUTHORIZATION`: 你的AutoDL Authorization token（获取方法见"获取Authorization"部分）
+     - `MIN_DAY`: 最小天数阈值（可选，默认为7）
+
+3. **启用Actions**
+   - 进入 `Actions` 标签页
+   - 如果提示需要启用，点击 `I understand my workflows, go ahead and enable them`
+
+4. **手动触发测试（可选）**
+   - 在 `Actions` 标签页，选择 `AutoDL Keeper` workflow
+   - 点击 `Run workflow` 按钮手动触发一次测试
+
+### 工作原理
+
+- GitHub Actions会每天自动执行一次检查（UTC时间 0点，即北京时间早上8点）
+- 你也可以在Actions页面手动触发执行
+- 执行日志可以在Actions页面查看
+
+### 优势
+
+- ✅ 完全免费（GitHub Actions免费额度足够使用）
+- ✅ 无需维护服务器
+- ✅ 自动执行，无需担心服务器宕机
+- ✅ 执行日志清晰可见
+
+### 注意事项
+
+- GitHub Actions使用UTC时间，cron表达式为 `0 0 * * *`（每天UTC 0点执行，即北京时间早上8点）
+- 如果需要在特定时间执行，可以修改 `.github/workflows/autodl-keeper.yml` 中的cron表达式
+- 免费账户每月有2000分钟的免费额度，每天执行一次完全足够使用
