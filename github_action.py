@@ -10,8 +10,7 @@ import pytz
 
 load_dotenv()
 authorization = os.getenv('Authorization')
-# 如果 MIN_DAY 为空字符串，使用默认值 '7'
-min_day = os.getenv('MIN_DAY', '7') or '7'
+min_day = os.getenv('MIN_DAY')
 
 logging.basicConfig(
     level=logging.INFO,

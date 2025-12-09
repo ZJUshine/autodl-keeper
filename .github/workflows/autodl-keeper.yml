@@ -24,24 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Create .env file from secrets
-      run: |
-        # 优先使用 ENV_FILE secret（包含整个 .env 文件内容）
-        # 如果没有 ENV_FILE，则使用单独的 secrets
-        if [ -n "${{ secrets.ENV_FILE }}" ]; then
-          echo "${{ secrets.ENV_FILE }}" > .env
-        else
-          # 如果 MIN_DAY 为空或未设置，使用默认值 7
-          MIN_DAY_VALUE="${{ secrets.MIN_DAY }}"
-          if [ -z "$MIN_DAY_VALUE" ]; then
-            MIN_DAY_VALUE="7"
-          fi
-          cat > .env << EOF
-        Authorization=${{ secrets.AUTODL_AUTHORIZATION }}
-        MIN_DAY=$MIN_DAY_VALUE
-        EOF
-        fi
-    
     - name: Run AutoDL Keeper
       run: |
         python github_action.py
